@@ -16,7 +16,7 @@ export default commands.registerTextEditorCommand(
     const contextStart = Math.max(selection.active.line - 50, 0);
     const contextEnd = Math.min(selection.active.line + 50, document.lineCount);
     const contextLines: string[] = [];
-    for (let i = contextStart; i <= contextEnd; i++) contextLines.push(document.lineAt(i).text);
+    for (let i = contextStart + 1; i < contextEnd; i++) contextLines.push(document.lineAt(i).text);
     const codeContext = contextLines.join("\n");
     await window.withProgress(
       {
