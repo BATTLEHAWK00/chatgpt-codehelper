@@ -3,13 +3,9 @@ import * as nunjucks from "nunjucks";
 nunjucks.configure({ autoescape: false });
 
 export class PromptTemplate {
-  private preCompiledString: string;
-
-  constructor(private templateString: string) {
-    this.preCompiledString = nunjucks.precompileString(templateString);
-  }
+  constructor(private templateString: string) {}
 
   render(content: unknown) {
-    return nunjucks.renderString(this.preCompiledString, content as object);
+    return nunjucks.renderString(this.templateString, content as object);
   }
 }

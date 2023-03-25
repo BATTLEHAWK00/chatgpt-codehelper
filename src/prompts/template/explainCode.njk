@@ -1,0 +1,6 @@
+This code is written in {{ codeLanguage }}, Explain it:
+{% if code.withLineNumber %}
+{% for line in code.lines %}{{ line.number }}:{{ line.text }}{{ "\n" | escape}}{% endfor %}
+{% else %}
+{% for line in code.lines %}{{ line.text }}{{ "\n" | escape}}{% endfor %}
+{% endif %}
