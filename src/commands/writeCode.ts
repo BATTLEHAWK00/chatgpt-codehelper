@@ -12,6 +12,7 @@ export default commands.registerTextEditorCommand(
       window.showInformationMessage("Your requirements is empty.");
       return;
     }
+    const activeLine = selection.active;
     const contextStart = Math.max(selection.active.line - 50, 0);
     const contextEnd = Math.min(selection.active.line + 50, document.lineCount);
     const contextLines: string[] = [];
@@ -27,7 +28,7 @@ export default commands.registerTextEditorCommand(
         const prompt = renderWriteCodePrompt({ requirements, codeContext, codeLanguage: document.languageId });
         try {
           const result = await api.sendMessage(prompt);
-          insertSnippet(new SnippetString(result.text));
+          insertSnippet(new SnippetString(result.text), activeLine);
         } catch (error) {
           window.showErrorMessage(error instanceof Error ? error.message : "unknown error");
         }

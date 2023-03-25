@@ -28,7 +28,6 @@ function sendMessage(prompt: string) {
     },
   });
 }
-
 export default {
   sendMessage,
 };
