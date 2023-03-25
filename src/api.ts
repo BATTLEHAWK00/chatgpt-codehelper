@@ -1,13 +1,11 @@
 import { PromptTemplate } from "./template";
 import { ChatGPTAPI } from "chatgpt";
 import fetch from "node-fetch";
-import { workspace } from "vscode";
 import systemBasePrompt from "./prompts/template/systemBasePrompt.njk";
 import "@dqbd/tiktoken/tiktoken_bg.wasm";
+import { getConfig } from "./config";
 
-const apiKey =
-  workspace.getConfiguration("chatgptCodeHelper").get<string>("apiKey") ||
-  "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";
+const apiKey: string = getConfig().get("apiKey") || "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";
 
 if (!apiKey) throw new Error("You haven't configure the apiKey in plugin settings yet. Please set your api key.");
 
@@ -16,7 +14,7 @@ const systemMessageTemplate = new PromptTemplate(systemBasePrompt);
 const getSystemMessage = () =>
   systemMessageTemplate.render({
     currentDate: new Date().toString(),
-    replyLanguage: "Chinese",
+    replyLanguage: getConfig().get("language"),
   });
 
 const chatgptApi = new ChatGPTAPI({

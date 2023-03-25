@@ -37,6 +37,12 @@
           "type": "boolean",
           "default": false,
           "description": "Defines whether the plugin should tell the line number of the code."
+        },
+        "chatgptCodeHelper.language": {
+          "type": "string",
+          "default": "English",
+          "enum": [ "English", "中文" ],
+          "description": "Defines what language should ChatGPT use for reply."
         }
       }
     },

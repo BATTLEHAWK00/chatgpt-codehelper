@@ -40,26 +40,38 @@ exports["default"] = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+const config_1 = __webpack_require__(122);
 const api_1 = __webpack_require__(4);
 const explainCode_1 = __webpack_require__(119);
 const vscode_1 = __webpack_require__(1);
-const config = vscode_1.workspace.getConfiguration("chatgptCodeHelper");
+const outputChannel_1 = __webpack_require__(123);
 exports["default"] = vscode_1.commands.registerTextEditorCommand("chatgpt-codehelper.explainCode", async ({ document, selections }) => {
-    const lines = selections.flatMap(selection => {
-        const result = [];
-        for (let i = selection.start.line; i <= selection.end.line; i++) {
-            const text = document.lineAt(i).text;
-            if (text.trim().length)
-                result.push({ number: i, text });
+    vscode_1.window.withProgress({
+        location: vscode_1.ProgressLocation.Notification,
+        title: "Waiting for ChatGPT to response...",
+        cancellable: false,
+    }, async () => {
+        const lines = selections.flatMap(selection => {
+            const result = [];
+            for (let i = selection.start.line; i <= selection.end.line; i++) {
+                const text = document.lineAt(i).text;
+                if (text.trim().length)
+                    result.push({ number: i, text });
+            }
+            return result;
+        });
+        const prompt = (0, explainCode_1.renderExplainPrompt)({
+            code: { lines, withLineNumber: (0, config_1.getConfig)().get("withLineNumber") ?? false },
+            codeLanguage: document.languageId,
+        });
+        try {
+            const result = await api_1.default.sendMessage(prompt);
+            (0, outputChannel_1.outputTransient)(result.text);
         }
-        return result;
+        catch (error) {
+            vscode_1.window.showErrorMessage(error instanceof Error ? error.message : "unknown error");
+        }
     });
-    const prompt = (0, explainCode_1.renderExplainPrompt)({
-        code: { lines, withLineNumber: config.get("withLineNumber") ?? false },
-        codeLanguage: document.languageId,
-    });
-    console.log(prompt);
-    api_1.default.sendMessage(prompt);
 });
 
 
@@ -73,17 +85,16 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const template_1 = __webpack_require__(5);
 const chatgpt_1 = __webpack_require__(67);
 const node_fetch_1 = __webpack_require__(83);
-const vscode_1 = __webpack_require__(1);
 const systemBasePrompt_njk_1 = __webpack_require__(117);
 __webpack_require__(118);
-const apiKey = vscode_1.workspace.getConfiguration("chatgptCodeHelper").get("apiKey") ||
-    "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";
+const config_1 = __webpack_require__(122);
+const apiKey = (0, config_1.getConfig)().get("apiKey") || "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";
 if (!apiKey)
     throw new Error("You haven't configure the apiKey in plugin settings yet. Please set your api key.");
 const systemMessageTemplate = new template_1.PromptTemplate(systemBasePrompt_njk_1.default);
 const getSystemMessage = () => systemMessageTemplate.render({
     currentDate: new Date().toString(),
-    replyLanguage: "Chinese",
+    replyLanguage: (0, config_1.getConfig)().get("language"),
 });
 const chatgptApi = new chatgpt_1.ChatGPTAPI({
     apiKey,
@@ -23941,6 +23952,57 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("This code is written in {{ codeLanguage }}, Explain it:\n{% if code.withLineNumber %}\n{% for line in code.lines %}{{ line.number }}:{{ line.text }}{{ \"\\n\" | escape}}{% endfor %}\n{% else %}\n{% for line in code.lines %}{{ line.text }}{{ \"\\n\" | escape}}{% endfor %}\n{% endif %}\n");
 
+/***/ }),
+/* 121 */,
+/* 122 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getConfig = void 0;
+const vscode_1 = __webpack_require__(1);
+const _getConfig = () => vscode_1.workspace.getConfiguration("chatgptCodeHelper");
+let config = _getConfig();
+const getConfig = () => config;
+exports.getConfig = getConfig;
+exports["default"] = {
+    init: ({ subscriptions }) => {
+        subscriptions.push(vscode_1.workspace.onDidChangeConfiguration(({ affectsConfiguration }) => {
+            if (affectsConfiguration("chatgptCodeHelper"))
+                config = _getConfig();
+        }));
+    },
+};
+
+
+/***/ }),
+/* 123 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.output = exports.outputTransient = void 0;
+const vscode_1 = __webpack_require__(1);
+const normalChannel = vscode_1.window.createOutputChannel("ChatGPT CodeHelper");
+const transientChannel = vscode_1.window.createOutputChannel("ChatGPT CodeHelper(Single message)");
+const outputTransient = (message) => {
+    transientChannel.replace(message);
+    transientChannel.show();
+};
+exports.outputTransient = outputTransient;
+const output = (message) => {
+    normalChannel.replace(message);
+    normalChannel.show();
+};
+exports.output = output;
+exports["default"] = {
+    normalChannel,
+    transientChannel,
+};
+
+
 /***/ })
 /******/ 	]);
 /************************************************************************/
@@ -24105,12 +24167,15 @@ exports.deactivate = exports.activate = void 0;
 const vscode_1 = __webpack_require__(1);
 const statusBar_1 = __webpack_require__(2);
 const explainCode_1 = __webpack_require__(3);
-function activate({ subscriptions }) {
+const config_1 = __webpack_require__(122);
+function activate(context) {
     console.log("Activating chatgpt-helper...");
+    // Init config
+    config_1.default.init(context);
     // Init status bar
     statusBar_1.default.init();
     // Init commands
-    subscriptions.push(explainCode_1.default, vscode_1.commands.registerTextEditorCommand("chatgpt-codehelper.optimizeCode", () => {
+    context.subscriptions.push(explainCode_1.default, vscode_1.commands.registerTextEditorCommand("chatgpt-codehelper.optimizeCode", () => {
         console.log("test");
     }));
     console.log("Activated chatgpt-helper...");

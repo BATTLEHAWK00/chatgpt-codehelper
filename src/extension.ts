@@ -1,19 +1,19 @@
-import { PromptTemplate } from "./template";
-import { commands, ExtensionContext, languages } from "vscode";
+import { commands, ExtensionContext } from "vscode";
 import statusBar from "./statusBar";
-import api from "./api";
-import explain from "./prompts/explainCode.njk";
-import { renderExplainPrompt } from "./prompts/explainCode";
 import explainCode from "./commands/explainCode";
+import config from "./config";
 
-export function activate({ subscriptions }: ExtensionContext) {
+export function activate(context: ExtensionContext) {
   console.log("Activating chatgpt-helper...");
+
+  // Init config
+  config.init(context);
 
   // Init status bar
   statusBar.init();
 
   // Init commands
-  subscriptions.push(
+  context.subscriptions.push(
     explainCode,
     commands.registerTextEditorCommand("chatgpt-codehelper.optimizeCode", () => {
       console.log("test");
