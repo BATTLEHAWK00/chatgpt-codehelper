@@ -1,15 +1,14 @@
-import { commands, ExtensionContext, StatusBarAlignment, window } from "vscode";
+import { commands, ExtensionContext } from "vscode";
+import statusBar from "./statusBar";
 
 export function activate({ subscriptions }: ExtensionContext) {
-  console.log('Congratulations, your extension "chatgpt-codehelper" is now active!');
+  console.log("Activating chatgpt-helper...");
 
-  const statusBar = window.createStatusBarItem(StatusBarAlignment.Right);
-  statusBar.text = "CodeHelper";
-  statusBar.show();
+  // Init status bar
+  statusBar.init();
+
+  // Init commands
   subscriptions.push(
-    commands.registerCommand("chatgpt-codehelper.helloWorld", () => {
-      window.showInformationMessage("Hello World from chatgpt-codehelper!");
-    }),
     commands.registerTextEditorCommand("chatgpt-codehelper.explainCode", () => {
       console.log("test");
     }),
@@ -17,6 +16,7 @@ export function activate({ subscriptions }: ExtensionContext) {
       console.log("test");
     }),
   );
+  console.log("Activated chatgpt-helper...");
 }
 
 export function deactivate() {}

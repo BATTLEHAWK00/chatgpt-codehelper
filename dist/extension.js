@@ -7,6 +7,31 @@
 
 module.exports = require("vscode");
 
+/***/ }),
+/* 2 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.showLoading = void 0;
+const vscode_1 = __webpack_require__(1);
+let statusBar;
+function init() {
+    statusBar = vscode_1.window.createStatusBarItem(vscode_1.StatusBarAlignment.Right);
+    statusBar.text = "CodeHelper";
+    statusBar.show();
+}
+async function showLoading(callback) {
+    statusBar.text = "CodeHelper: waiting...";
+    await callback();
+    statusBar.text = "CodeHelper";
+}
+exports.showLoading = showLoading;
+exports["default"] = {
+    init,
+};
+
+
 /***/ })
 /******/ 	]);
 /************************************************************************/
@@ -43,18 +68,18 @@ var exports = __webpack_exports__;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.deactivate = exports.activate = void 0;
 const vscode_1 = __webpack_require__(1);
+const statusBar_1 = __webpack_require__(2);
 function activate({ subscriptions }) {
-    console.log('Congratulations, your extension "chatgpt-codehelper" is now active!');
-    const statusBar = vscode_1.window.createStatusBarItem(vscode_1.StatusBarAlignment.Right);
-    statusBar.text = "CodeHelper";
-    statusBar.show();
-    subscriptions.push(vscode_1.commands.registerCommand("chatgpt-codehelper.helloWorld", () => {
-        vscode_1.window.showInformationMessage("Hello World from chatgpt-codehelper!");
-    }), vscode_1.commands.registerTextEditorCommand("chatgpt-codehelper.explainCode", () => {
+    console.log("Activating chatgpt-helper...");
+    // Init status bar
+    statusBar_1.default.init();
+    // Init commands
+    subscriptions.push(vscode_1.commands.registerTextEditorCommand("chatgpt-codehelper.explainCode", () => {
         console.log("test");
     }), vscode_1.commands.registerTextEditorCommand("chatgpt-codehelper.optimizeCode", () => {
         console.log("test");
     }));
+    console.log("Activated chatgpt-helper...");
 }
 exports.activate = activate;
 function deactivate() { }
