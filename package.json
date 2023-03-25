@@ -1,6 +1,6 @@
 {
   "name": "chatgpt-codehelper",
-  "displayName": "chatgpt-codehelper",
+  "displayName": "ChatGPT CodeHelper",
   "description": "",
   "version": "0.0.1",
   "engines": {
@@ -18,18 +18,12 @@
       "title": "Chatgpt CodeHelper",
       "properties": {
         "chatgptCodeHelper.apiKey": {
-          "type": [
-            "string",
-            "null"
-          ],
+          "type": "string",
           "default": "",
           "description": "Defines what api key should this plugin use to communicate with OpenAI."
         },
         "chatgptCodeHelper.apiBaseUrl": {
-          "type": [
-            "string",
-            "null"
-          ],
+          "type": "string",
           "default": null,
           "description": "Defines what base url should this plugin use to communicate with OpenAI."
         },
@@ -41,7 +35,7 @@
         "chatgptCodeHelper.language": {
           "type": "string",
           "default": "English",
-          "enum": [ "English", "中文" ],
+          "enum": [ "English", "Chinese" ],
           "description": "Defines what language should ChatGPT use for reply."
         }
       }
@@ -57,6 +51,11 @@
           "command": "chatgpt-codehelper.optimizeCode",
           "group": "chatgpt-codehelper",
           "when": "editorTextFocus"
+        },
+        {
+          "command": "chatgpt-codehelper.tellProblems",
+          "group": "chatgpt-codehelper",
+          "when": "editorTextFocus"
         }
       ]
     },
@@ -68,6 +67,10 @@
       {
         "command": "chatgpt-codehelper.optimizeCode",
         "title": "Optimize the code"
+      },
+      {
+        "command": "chatgpt-codehelper.tellProblems",
+        "title": "Tell the problems of the code"
       }
     ],
     "keybindings": [

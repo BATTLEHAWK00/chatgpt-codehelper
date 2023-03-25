@@ -5,10 +5,6 @@ import systemBasePrompt from "./prompts/template/systemBasePrompt.njk";
 import "@dqbd/tiktoken/tiktoken_bg.wasm";
 import { getConfig } from "./config";
 
-const apiKey: string = getConfig().get("apiKey") || "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";
-
-if (!apiKey) throw new Error("You haven't configure the apiKey in plugin settings yet. Please set your api key.");
-
 const systemMessageTemplate = new PromptTemplate(systemBasePrompt);
 
 const getSystemMessage = () =>
@@ -18,7 +14,7 @@ const getSystemMessage = () =>
   });
 
 const chatgptApi = new ChatGPTAPI({
-  apiKey,
+  apiKey: getConfig().get("apiKey") ?? "",
   debug: true,
   fetch,
 });

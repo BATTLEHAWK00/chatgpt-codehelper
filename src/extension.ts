@@ -2,6 +2,8 @@ import { commands, ExtensionContext } from "vscode";
 import statusBar from "./statusBar";
 import explainCode from "./commands/explainCode";
 import config from "./config";
+import optimizeCode from "./commands/optimizeCode";
+import tellProblems from "./commands/tellProblems";
 
 export function activate(context: ExtensionContext) {
   console.log("Activating chatgpt-helper...");
@@ -13,12 +15,7 @@ export function activate(context: ExtensionContext) {
   statusBar.init();
 
   // Init commands
-  context.subscriptions.push(
-    explainCode,
-    commands.registerTextEditorCommand("chatgpt-codehelper.optimizeCode", () => {
-      console.log("test");
-    }),
-  );
+  context.subscriptions.push(explainCode, optimizeCode, tellProblems);
   console.log("Activated chatgpt-helper...");
 }
 

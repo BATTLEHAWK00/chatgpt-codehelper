@@ -1,12 +1,12 @@
 import { getConfig } from "../config";
 import api from "../api";
-import { renderExplainPrompt } from "../prompts/explainCode";
 import { ProgressLocation, commands, window } from "vscode";
 import { outputTransient } from "../outputChannel";
 import { getSelectedLines } from "../utils/document";
+import { renderTellProblemPrompt } from "../prompts/tellProblems";
 
 export default commands.registerTextEditorCommand(
-  "chatgpt-codehelper.explainCode",
+  "chatgpt-codehelper.tellProblems",
   async ({ document, selections }) => {
     window.withProgress(
       {
@@ -15,7 +15,7 @@ export default commands.registerTextEditorCommand(
         cancellable: false,
       },
       async () => {
-        const prompt = renderExplainPrompt({
+        const prompt = renderTellProblemPrompt({
           code: {
             lines: getSelectedLines(selections, document),
             withLineNumber: getConfig().get("withLineNumber") ?? false,
