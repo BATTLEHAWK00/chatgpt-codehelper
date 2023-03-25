@@ -9,9 +9,23 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [ "onStartupFinished" ],
   "main": "./dist/extension.js",
   "contributes": {
+    "menus": {
+      "editor/context": [
+        {
+          "command": "chatgpt-codehelper.explainCode",
+          "group": "chatgpt-codehelper",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "chatgpt-codehelper.optimizeCode",
+          "group": "chatgpt-codehelper",
+          "when": "editorTextFocus"
+        }
+      ]
+    },
     "commands": [
       {
         "command": "chatgpt-codehelper.explainCode",
@@ -20,6 +34,20 @@
       {
         "command": "chatgpt-codehelper.optimizeCode",
         "title": "Optimize the code"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "chatgpt-codehelper.explainCode",
+        "key": "ctrl+alt+h e",
+        "mac": "cmd+alt+h e",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "chatgpt-codehelper.optimizeCode",
+        "key": "ctrl+alt+h o",
+        "mac": "cmd+alt+h o",
+        "when": "editorTextFocus"
       }
     ]
   },
@@ -50,5 +78,8 @@
     "typescript": "^4.9.5",
     "webpack": "^5.76.3",
     "webpack-cli": "^5.0.1"
+  },
+  "dependencies": {
+    "chatgpt": "^5.1.2"
   }
 }

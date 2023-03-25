@@ -45,6 +45,9 @@ exports.deactivate = exports.activate = void 0;
 const vscode_1 = __webpack_require__(1);
 function activate({ subscriptions }) {
     console.log('Congratulations, your extension "chatgpt-codehelper" is now active!');
+    const statusBar = vscode_1.window.createStatusBarItem(vscode_1.StatusBarAlignment.Right);
+    statusBar.text = "CodeHelper";
+    statusBar.show();
     subscriptions.push(vscode_1.commands.registerCommand("chatgpt-codehelper.helloWorld", () => {
         vscode_1.window.showInformationMessage("Hello World from chatgpt-codehelper!");
     }), vscode_1.commands.registerTextEditorCommand("chatgpt-codehelper.explainCode", () => {
