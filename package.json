@@ -1,7 +1,7 @@
 {
   "name": "chatgpt-codehelper",
   "displayName": "ChatGPT CodeHelper",
-  "description": "",
+  "description": "A helper plugin to make your code best using ChatGPT",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.76.0"
@@ -37,6 +37,11 @@
           "default": "English",
           "enum": [ "English", "Chinese" ],
           "description": "Defines what language should ChatGPT use for reply."
+        },
+        "chatgptCodeHelper.timeout": {
+          "type": "number",
+          "default": 30000,
+          "description": "Defines the timeout of each API request."
         }
       }
     },
@@ -49,6 +54,11 @@
         },
         {
           "command": "chatgpt-codehelper.optimizeCode",
+          "group": "chatgpt-codehelper",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "chatgpt-codehelper.optimizeCodePerformance",
           "group": "chatgpt-codehelper",
           "when": "editorTextFocus"
         },
@@ -69,6 +79,10 @@
         "title": "Optimize the code"
       },
       {
+        "command": "chatgpt-codehelper.optimizeCodePerformance",
+        "title": "Optimize code performance"
+      },
+      {
         "command": "chatgpt-codehelper.tellProblems",
         "title": "Tell the problems of the code"
       }
@@ -84,6 +98,18 @@
         "command": "chatgpt-codehelper.optimizeCode",
         "key": "ctrl+alt+h o",
         "mac": "cmd+alt+h o",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "chatgpt-codehelper.optimizeCodePerformance",
+        "key": "ctrl+alt+h l",
+        "mac": "cmd+alt+h l",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "chatgpt-codehelper.tellProblems",
+        "key": "ctrl+alt+h p",
+        "mac": "cmd+alt+h p",
         "when": "editorTextFocus"
       }
     ]

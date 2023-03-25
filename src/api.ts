@@ -20,7 +20,13 @@ const chatgptApi = new ChatGPTAPI({
 });
 
 function sendMessage(prompt: string) {
-  return chatgptApi.sendMessage(prompt, { systemMessage: getSystemMessage() });
+  return chatgptApi.sendMessage(prompt, {
+    systemMessage: getSystemMessage(),
+    timeoutMs: getConfig().get("timeout"),
+    completionParams: {
+      temperature: 0.4,
+    },
+  });
 }
 
 export default {

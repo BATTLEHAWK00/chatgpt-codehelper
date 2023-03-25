@@ -4,6 +4,7 @@ import explainCode from "./commands/explainCode";
 import config from "./config";
 import optimizeCode from "./commands/optimizeCode";
 import tellProblems from "./commands/tellProblems";
+import optimizeCodeInPerf from "./commands/optimizeCodeInPerf";
 
 export function activate(context: ExtensionContext) {
   console.log("Activating chatgpt-helper...");
@@ -15,7 +16,7 @@ export function activate(context: ExtensionContext) {
   statusBar.init();
 
   // Init commands
-  context.subscriptions.push(explainCode, optimizeCode, tellProblems);
+  context.subscriptions.push(explainCode, optimizeCode, tellProblems, optimizeCodeInPerf);
   console.log("Activated chatgpt-helper...");
 }
 

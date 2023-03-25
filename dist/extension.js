@@ -94,7 +94,13 @@ const chatgptApi = new chatgpt_1.ChatGPTAPI({
     fetch: node_fetch_1.default,
 });
 function sendMessage(prompt) {
-    return chatgptApi.sendMessage(prompt, { systemMessage: getSystemMessage() });
+    return chatgptApi.sendMessage(prompt, {
+        systemMessage: getSystemMessage(),
+        timeoutMs: (0, config_1.getConfig)().get("timeout"),
+        completionParams: {
+            temperature: 0.4,
+        },
+    });
 }
 exports["default"] = {
     sendMessage,
@@ -24078,7 +24084,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("This code is written in {{ codeLanguage }}, optimize it:\n{% if code.withLineNumber %}\n{% for line in code.lines %}{{ line.number }}:{{ line.text }}{{ \"\\n\" | escape}}{% endfor %}\n{% else %}\n{% for line in code.lines %}{{ line.text }}{{ \"\\n\" | escape}}{% endfor %}\n{% endif %}\n");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("Optimize its readability, reduce its complexity and explain why.\nThe code written in {{ codeLanguage }} you need to optimize is:\n{% if code.withLineNumber %}\n{% for line in code.lines %}{{ line.number }}:{{ line.text }}{{ \"\\n\" | escape}}{% endfor %}\n{% else %}\n{% for line in code.lines %}{{ line.text }}{{ \"\\n\" | escape}}{% endfor %}\n{% endif %}\n");
 
 /***/ }),
 /* 128 */
@@ -24142,6 +24148,69 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("This code is written in {{ codeLanguage }}, tell me its problems:\n{% if code.withLineNumber %}\n{% for line in code.lines %}{{ line.number }}:{{ line.text }}{{ \"\\n\" | escape}}{% endfor %}\n{% else %}\n{% for line in code.lines %}{{ line.text }}{{ \"\\n\" | escape}}{% endfor %}\n{% endif %}\n");
+
+/***/ }),
+/* 131 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const optimizeCodePerformance_1 = __webpack_require__(132);
+const config_1 = __webpack_require__(122);
+const api_1 = __webpack_require__(4);
+const vscode_1 = __webpack_require__(1);
+const outputChannel_1 = __webpack_require__(123);
+const document_1 = __webpack_require__(124);
+exports["default"] = vscode_1.commands.registerTextEditorCommand("chatgpt-codehelper.optimizeCodePerformance", async ({ document, selections }) => {
+    vscode_1.window.withProgress({
+        location: vscode_1.ProgressLocation.Notification,
+        title: "Waiting for ChatGPT to response...",
+        cancellable: false,
+    }, async () => {
+        const prompt = (0, optimizeCodePerformance_1.renderOptimizePerformancePrompt)({
+            code: {
+                lines: (0, document_1.getSelectedLines)(selections, document),
+                withLineNumber: (0, config_1.getConfig)().get("withLineNumber") ?? false,
+            },
+            codeLanguage: document.languageId,
+        });
+        try {
+            const result = await api_1.default.sendMessage(prompt);
+            (0, outputChannel_1.outputTransient)(result.text);
+        }
+        catch (error) {
+            vscode_1.window.showErrorMessage(error instanceof Error ? error.message : "unknown error");
+        }
+    });
+});
+
+
+/***/ }),
+/* 132 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.renderOptimizePerformancePrompt = void 0;
+const template_1 = __webpack_require__(5);
+const optimizeCodeInPerf_njk_1 = __webpack_require__(133);
+const template = new template_1.PromptTemplate(optimizeCodeInPerf_njk_1.default);
+const renderOptimizePerformancePrompt = (options) => template.render(options);
+exports.renderOptimizePerformancePrompt = renderOptimizePerformancePrompt;
+
+
+/***/ }),
+/* 133 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("Optimize its data structures and algorithms in order to increase performance, and give your example code.\nThe code written in {{ codeLanguage }} you need to optimize is:\n{% if code.withLineNumber %}\n{% for line in code.lines %}{{ line.number }}:{{ line.text }}{{ \"\\n\" | escape}}{% endfor %}\n{% else %}\n{% for line in code.lines %}{{ line.text }}{{ \"\\n\" | escape}}{% endfor %}\n{% endif %}\n");
 
 /***/ })
 /******/ 	]);
@@ -24309,6 +24378,7 @@ const explainCode_1 = __webpack_require__(3);
 const config_1 = __webpack_require__(122);
 const optimizeCode_1 = __webpack_require__(125);
 const tellProblems_1 = __webpack_require__(128);
+const optimizeCodeInPerf_1 = __webpack_require__(131);
 function activate(context) {
     console.log("Activating chatgpt-helper...");
     // Init config
@@ -24316,7 +24386,7 @@ function activate(context) {
     // Init status bar
     statusBar_1.default.init();
     // Init commands
-    context.subscriptions.push(explainCode_1.default, optimizeCode_1.default, tellProblems_1.default);
+    context.subscriptions.push(explainCode_1.default, optimizeCode_1.default, tellProblems_1.default, optimizeCodeInPerf_1.default);
     console.log("Activated chatgpt-helper...");
 }
 exports.activate = activate;
