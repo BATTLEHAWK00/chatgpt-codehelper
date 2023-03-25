@@ -48,6 +48,11 @@
     "menus": {
       "editor/context": [
         {
+          "command": "chatgpt-codehelper.writeCode",
+          "group": "chatgpt-codehelper",
+          "when": "editorTextFocus"
+        },
+        {
           "command": "chatgpt-codehelper.explainCode",
           "group": "chatgpt-codehelper",
           "when": "editorTextFocus"
@@ -71,16 +76,20 @@
     },
     "commands": [
       {
+        "command": "chatgpt-codehelper.writeCode",
+        "title": "Write Code"
+      },
+      {
         "command": "chatgpt-codehelper.explainCode",
-        "title": "Explain the code"
+        "title": "Explain code"
       },
       {
         "command": "chatgpt-codehelper.optimizeCode",
-        "title": "Optimize the code"
+        "title": "Optimize code"
       },
       {
         "command": "chatgpt-codehelper.optimizeCodePerformance",
-        "title": "Optimize code performance"
+        "title": "Optimize performance"
       },
       {
         "command": "chatgpt-codehelper.tellProblems",
