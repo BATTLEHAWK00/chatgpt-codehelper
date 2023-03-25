@@ -123,6 +123,12 @@
         "key": "ctrl+alt+h p",
         "mac": "cmd+alt+h p",
         "when": "editorTextFocus"
+      },
+      {
+        "command": "chatgpt-codehelper.writeCode",
+        "key": "ctrl+alt+h w",
+        "mac": "cmd+alt+h w",
+        "when": "editorTextFocus"
       }
     ]
   },
