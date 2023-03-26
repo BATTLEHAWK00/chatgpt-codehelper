@@ -1,5 +1,5 @@
 {
-  "command.WriteCode": "CodeHelper: 写代码",
+  "command.WriteCode": "CodeHelper: 编写代码",
   "command.ExplainCode": "CodeHelper: 解释代码",
   "command.OptimizeCode": "CodeHelper: 优化代码",
   "command.OptimizePerformance": "CodeHelper: 优化性能",
