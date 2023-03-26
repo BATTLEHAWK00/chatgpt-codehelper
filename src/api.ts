@@ -1,7 +1,7 @@
 import { PromptTemplate } from "./template";
 import { ChatGPTAPI } from "chatgpt";
 import fetch from "node-fetch";
-import systemBasePrompt from "./prompts/template/systemBasePrompt.njk";
+import systemBasePrompt from "./prompts/systemBasePrompt.njk";
 import "@dqbd/tiktoken/tiktoken_bg.wasm";
 import { getConfig } from "./config";
 
