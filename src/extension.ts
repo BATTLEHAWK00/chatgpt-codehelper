@@ -7,6 +7,7 @@ import tellProblems from "./commands/tellProblems";
 import optimizeCodeInPerf from "./commands/optimizeCodeInPerf";
 import writeCode from "./commands/writeCode";
 import writeTest from "./commands/writeTest";
+import findBugs from "./commands/findBugs";
 
 export function activate(context: ExtensionContext) {
   // Init config
@@ -16,7 +17,15 @@ export function activate(context: ExtensionContext) {
   statusBar.init();
 
   // Init commands
-  context.subscriptions.push(explainCode, optimizeCode, tellProblems, optimizeCodeInPerf, writeCode, writeTest);
+  context.subscriptions.push(
+    explainCode,
+    optimizeCode,
+    tellProblems,
+    optimizeCodeInPerf,
+    writeCode,
+    writeTest,
+    findBugs,
+  );
 }
 
 export function deactivate() {

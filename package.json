@@ -89,6 +89,11 @@
           "command": "chatgpt-codehelper.writeTest",
           "group": "chatgpt-codehelper",
           "when": "editorTextFocus"
+        },
+        {
+          "command": "chatgpt-codehelper.findBugs",
+          "group": "chatgpt-codehelper",
+          "when": "editorTextFocus"
         }
       ]
     },
@@ -116,6 +121,10 @@
       {
         "command": "chatgpt-codehelper.writeTest",
         "title": "%command.writeTest%"
+      },
+      {
+        "command": "chatgpt-codehelper.findBugs",
+        "title": "%command.findBugs%"
       }
     ],
     "keybindings": [
@@ -153,6 +162,12 @@
         "command": "chatgpt-codehelper.writeTest",
         "key": "ctrl+alt+h t",
         "mac": "cmd+alt+h t",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "chatgpt-codehelper.findBugs",
+        "key": "ctrl+alt+h b",
+        "mac": "cmd+alt+h b",
         "when": "editorTextFocus"
       }
     ]

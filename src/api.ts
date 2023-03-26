@@ -15,7 +15,7 @@ const getSystemMessage = () =>
 
 const chatgptApi = new ChatGPTAPI({
   apiKey: getConfig().get("apiKey") ?? "",
-  apiBaseUrl: getConfig().get("apiBaseUrl"),
+  apiBaseUrl: getConfig().get("apiBaseUrl") || undefined,
   debug: true,
   fetch,
 });
