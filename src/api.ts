@@ -25,7 +25,7 @@ function sendMessage(prompt: string) {
     systemMessage: getSystemMessage(),
     timeoutMs: getConfig().get("timeout"),
     completionParams: {
-      temperature: 0.4,
+      temperature: 0.6,
     },
   });
 }
