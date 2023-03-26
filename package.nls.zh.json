@@ -5,8 +5,8 @@
   "command.OptimizePerformance": "CodeHelper: 优化性能",
   "command.tellProblems": "CodeHelper: 指出问题",
   "command.writeTest": "CodeHelper: 编写测试",
-  "setting.apiKey": "与OpenAI通信时使用的API key",
-  "setting.apiBaseUrl": "与OpenAI通信时使用的Base Url",
+  "setting.apiKey": "与OpenAI通信时使用的API key（更改后重新加载生效）",
+  "setting.apiBaseUrl": "与OpenAI通信时使用的Base Url（更改后重新加载生效）",
   "setting.withLineNumber": "发送代码时是否带上行号",
   "setting.language": "ChatGPT回复倾向的语言",
   "setting.timeout": "API超时时间（毫秒）"

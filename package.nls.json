@@ -5,8 +5,8 @@
   "command.OptimizePerformance": "CodeHeloer: Optimize Performance",
   "command.tellProblems": "CodeHeloer: Tell the problems of the code",
   "command.writeTest": "CodeHeloer: Write test",
-  "setting.apiKey": "Defines what api key should this plugin use to communicate with OpenAI.",
-  "setting.apiBaseUrl": "Defines what base url should this plugin use to communicate with OpenAI.",
+  "setting.apiKey": "Defines what api key should this plugin use to communicate with OpenAI.(Reload required)",
+  "setting.apiBaseUrl": "Defines what base url should this plugin use to communicate with OpenAI.(Reload required)",
   "setting.withLineNumber": "Defines whether the plugin should tell the line number of the code.",
   "setting.language": "Defines what language should ChatGPT use for reply.",
   "setting.timeout": "Defines the timeout of each API request.(ms)"
