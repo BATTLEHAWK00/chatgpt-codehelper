@@ -2,12 +2,13 @@
   "name": "chatgpt-codehelper",
   "displayName": "ChatGPT CodeHelper",
   "description": "A helper plugin to make your code best using ChatGPT",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "publisher": "BATTLEHAWK",
   "repository": {
     "type": "git",
     "url": "https://github.com/BATTLEHAWK00/chatgpt-codehelper.git"
   },
+  "icon": "images/icon.png",
   "engines": {
     "vscode": "^1.76.0"
   },
