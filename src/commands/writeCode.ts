@@ -1,7 +1,11 @@
+import { WriteCodePromptOptions } from "../promptInterfaces";
 import api from "../api";
-import { ProgressLocation, SnippetString, commands, l10n, window } from "vscode";
-import { renderWriteCodePrompt } from "../prompts/writeCodes";
+import { SnippetString, commands, l10n, window } from "vscode";
 import { useLoading } from "../utils/loading";
+import { PromptTemplate } from "../template";
+import templateString from "../prompts/writeCode.njk";
+
+const template = new PromptTemplate<WriteCodePromptOptions>(templateString);
 
 export default commands.registerTextEditorCommand(
   "chatgpt-codehelper.writeCode",
@@ -20,7 +24,7 @@ export default commands.registerTextEditorCommand(
     const contextLines: string[] = [];
     for (let i = contextStart + 1; i < contextEnd; i++) contextLines.push(document.lineAt(i).text);
     const codeContext = contextLines.join("\n");
-    const prompt = renderWriteCodePrompt({ requirements, codeContext, codeLanguage: document.languageId });
+    const prompt = template.render({ requirements, codeContext, codeLanguage: document.languageId });
 
     return useLoading(async () => {
       const result = await api.sendMessage(prompt);

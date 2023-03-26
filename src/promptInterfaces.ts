@@ -8,3 +8,9 @@ export interface CodePromptOptions {
   };
   codeLanguage: string;
 }
+
+export interface WriteCodePromptOptions {
+  codeLanguage: string;
+  requirements: string;
+  codeContext: string;
+}
