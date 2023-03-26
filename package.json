@@ -2,7 +2,7 @@
   "name": "chatgpt-codehelper",
   "displayName": "ChatGPT CodeHelper",
   "description": "A helper plugin to make your code best using ChatGPT",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/BATTLEHAWK00/chatgpt-codehelper.git"
