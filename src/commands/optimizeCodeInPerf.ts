@@ -1,4 +1,3 @@
-import { renderOptimizePerformancePrompt } from "./../prompts/optimizeCodePerformance";
 import { getConfig } from "../config";
 import api from "../api";
 import { commands } from "vscode";
@@ -14,7 +13,7 @@ const template = new PromptTemplate<CodePromptOptions>(templateString);
 export default commands.registerTextEditorCommand(
   "chatgpt-codehelper.optimizeCodePerformance",
   ({ document, selections }) => {
-    const prompt = renderOptimizePerformancePrompt({
+    const prompt = template.render({
       code: {
         lines: getSelectedLines(selections, document),
         withLineNumber: getConfig().get("withLineNumber") ?? false,
