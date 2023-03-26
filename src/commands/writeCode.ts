@@ -23,12 +23,8 @@ export default commands.registerTextEditorCommand(
     const prompt = renderWriteCodePrompt({ requirements, codeContext, codeLanguage: document.languageId });
 
     return useLoading(async () => {
-      try {
-        const result = await api.sendMessage(prompt);
-        await insertSnippet(new SnippetString(result.text), activeLine);
-      } catch (error) {
-        window.showErrorMessage(error instanceof Error ? l10n.t(error.message) : l10n.t("unknown error"));
-      }
+      const result = await api.sendMessage(prompt);
+      await insertSnippet(new SnippetString(result.text), activeLine);
     });
   },
 );

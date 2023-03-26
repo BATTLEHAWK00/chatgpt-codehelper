@@ -15,11 +15,7 @@ export default commands.registerTextEditorCommand("chatgpt-codehelper.explainCod
     codeLanguage: document.languageId,
   });
   return useLoading(async () => {
-    try {
-      const result = await api.sendMessage(prompt);
-      outputTransient(result.text);
-    } catch (error) {
-      window.showErrorMessage(error instanceof Error ? l10n.t(error.message) : l10n.t("unknown error"));
-    }
+    const result = await api.sendMessage(prompt);
+    outputTransient(result.text);
   });
 });
