@@ -2,7 +2,7 @@
   "name": "chatgpt-codehelper",
   "displayName": "ChatGPT CodeHelper",
   "description": "A helper plugin to make your code best using ChatGPT",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "publisher": "BATTLEHAWK",
   "repository": {
     "type": "git",
@@ -173,6 +173,7 @@
     ]
   },
   "scripts": {
+    "publish": "npx vsce publish",
     "vscode:prepublish": "pnpm run package",
     "compile": "webpack",
     "watch": "webpack --watch",
