@@ -1,0 +1,12 @@
+{
+  "command.WriteCode": "CodeHelper: 写代码",
+  "command.ExplainCode": "CodeHelper: 解释代码",
+  "command.OptimizeCode": "CodeHelper: 优化代码",
+  "command.OptimizePerformance": "CodeHelper: 优化性能",
+  "command.tellProblems": "CodeHelper: 指出问题",
+  "setting.apiKey": "与OpenAI通信时使用的API key",
+  "setting.apiBaseUrl": "与OpenAI通信时使用的Base Url",
+  "setting.withLineNumber": "发送代码时是否带上行号",
+  "setting.language": "ChatGPT回复倾向的语言",
+  "setting.timeout": "API超时时间（毫秒）"
+}

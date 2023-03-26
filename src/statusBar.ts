@@ -8,6 +8,10 @@ function init() {
   statusBar.show();
 }
 
+function dispose() {
+  statusBar.dispose();
+}
+
 export async function showLoading(callback: () => void | Promise<void>) {
   statusBar.text = "CodeHelper: waiting...";
   await callback();
@@ -16,4 +20,5 @@ export async function showLoading(callback: () => void | Promise<void>) {
 
 export default {
   init,
+  dispose,
 };

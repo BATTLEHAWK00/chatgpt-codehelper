@@ -17,6 +17,7 @@
     "onStartupFinished"
   ],
   "main": "./dist/extension.js",
+  "l10n": "./l10n",
   "contributes": {
     "configuration": {
       "title": "Chatgpt CodeHelper",
@@ -24,31 +25,32 @@
         "chatgptCodeHelper.apiKey": {
           "type": "string",
           "default": "",
-          "description": "Defines what api key should this plugin use to communicate with OpenAI."
+          "description": "%setting.apiKey%"
         },
         "chatgptCodeHelper.apiBaseUrl": {
           "type": "string",
           "default": null,
-          "description": "Defines what base url should this plugin use to communicate with OpenAI."
+          "description": "%setting.apiBaseUrl%"
         },
         "chatgptCodeHelper.withLineNumber": {
           "type": "boolean",
           "default": false,
-          "description": "Defines whether the plugin should tell the line number of the code."
+          "description": "%setting.withLineNumber%"
         },
         "chatgptCodeHelper.language": {
           "type": "string",
           "default": "English",
           "enum": [
             "English",
-            "Chinese"
+            "Chinese",
+            "Japanese"
           ],
-          "description": "Defines what language should ChatGPT use for reply."
+          "description": "%setting.language%"
         },
         "chatgptCodeHelper.timeout": {
           "type": "number",
           "default": 30000,
-          "description": "Defines the timeout of each API request."
+          "description": "%setting.timeout%"
         }
       }
     },
@@ -84,23 +86,23 @@
     "commands": [
       {
         "command": "chatgpt-codehelper.writeCode",
-        "title": "Write Code"
+        "title": "%command.WriteCode%"
       },
       {
         "command": "chatgpt-codehelper.explainCode",
-        "title": "Explain code"
+        "title": "%command.ExplainCode%"
       },
       {
         "command": "chatgpt-codehelper.optimizeCode",
-        "title": "Optimize code"
+        "title": "%command.OptimizeCode%"
       },
       {
         "command": "chatgpt-codehelper.optimizeCodePerformance",
-        "title": "Optimize performance"
+        "title": "%command.OptimizePerformance%"
       },
       {
         "command": "chatgpt-codehelper.tellProblems",
-        "title": "Tell the problems of the code"
+        "title": "%command.tellProblems%"
       }
     ],
     "keybindings": [
@@ -145,6 +147,7 @@
     "watch-tests": "tsc -p . -w --outDir out",
     "pretest": "pnpm run compile-tests && pnpm run compile && pnpm run lint",
     "lint": "eslint src --ext ts",
+    "generate-l10n": "npx @vscode/l10n-dev export --outDir ./l10n ./src",
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
@@ -155,6 +158,7 @@
     "@types/vscode": "^1.76.0",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.56.0",
+    "@vscode/l10n-dev": "^0.0.23",
     "@vscode/test-electron": "^2.3.0",
     "@vscode/vsce": "^2.18.0",
     "copy-webpack-plugin": "^11.0.0",
@@ -173,6 +177,7 @@
     "@dqbd/tiktoken": "^1.0.2",
     "chatgpt": "^5.1.2",
     "node-fetch": "^3.3.1",
-    "nunjucks": "^3.2.3"
+    "nunjucks": "^3.2.3",
+    "vscode-nls": "^5.2.0"
   }
 }
