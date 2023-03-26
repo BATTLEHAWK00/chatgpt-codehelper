@@ -3,5 +3,6 @@
   "Please input your requirements": "请输入您的需求",
   "Your requirements is empty.": "您输入的需求为空",
   "unknown error": "未知错误",
-  "OpenAI timed out waiting for response": "OpenAI请求超时"
+  "OpenAI timed out waiting for response": "OpenAI请求超时",
+  "Please input testing framework AI would use": "请输入想要AI使用的测试框架名称"
 }

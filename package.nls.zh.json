@@ -4,6 +4,7 @@
   "command.OptimizeCode": "CodeHelper: 优化代码",
   "command.OptimizePerformance": "CodeHelper: 优化性能",
   "command.tellProblems": "CodeHelper: 指出问题",
+  "command.writeTest": "CodeHelper: 编写测试",
   "setting.apiKey": "与OpenAI通信时使用的API key",
   "setting.apiBaseUrl": "与OpenAI通信时使用的Base Url",
   "setting.withLineNumber": "发送代码时是否带上行号",

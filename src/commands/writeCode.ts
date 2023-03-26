@@ -17,7 +17,6 @@ export default commands.registerTextEditorCommand(
       window.showInformationMessage(l10n.t("Your requirements is empty."));
       return;
     }
-
     const activeLine = selection.active;
     const contextStart = Math.max(selection.active.line - 50, 0);
     const contextEnd = Math.min(selection.active.line + 50, document.lineCount);

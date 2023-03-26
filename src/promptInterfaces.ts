@@ -14,3 +14,9 @@ export interface WriteCodePromptOptions {
   requirements: string;
   codeContext: string;
 }
+
+export interface WriteTestPromptOptions {
+  codeLanguage: string;
+  testingFramework?: string;
+  codeContext: string;
+}
